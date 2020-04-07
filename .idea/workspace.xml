@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aa91c7e0-b118-436f-b1a3-fd306af8eaad" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/practice_api/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/practice_api/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/practice_api/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/practice_api/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/practice_api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/practice_api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/practice_api/target/practice_api-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/practice_api/target/practice_api-1.0-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -91,6 +95,8 @@
       <workItem from="1585302226921" duration="2521000" />
       <workItem from="1585727446463" duration="698000" />
       <workItem from="1586172596339" duration="24000" />
+      <workItem from="1586230268552" duration="3901000" />
+      <workItem from="1586255667043" duration="1482000" />
     </task>
     <servers />
   </component>
