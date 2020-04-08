@@ -15,7 +15,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/east_north_boot?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
     username: root
-    password: 123456a?
+    password: root
     hikari:
       connection-timeout: 30000             # 等待连接池分配连接的最大时长（毫秒）
       minimum-idle: 5                       # 最小连接数

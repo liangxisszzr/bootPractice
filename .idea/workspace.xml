@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aa91c7e0-b118-436f-b1a3-fd306af8eaad" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/practice_api/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/practice_api/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/practice_api/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/practice_api/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/practice_api/src/main/java/com/eastnorth/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/practice_api/src/main/java/com/eastnorth/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/practice_api/target/classes/com/eastnorth/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/practice_api/target/classes/com/eastnorth/Application.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,8 +18,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -31,7 +30,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/practice_mapper/src/main/java/com/eastnorth" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -51,6 +50,9 @@
       <recent name="com.eastnorth" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\practice\boot\practice_mapper\src\main\java\com\eastnorth" />
+      <recent name="D:\practice\boot\practice_pojo\src\main\java\com\eastnorth" />
+      <recent name="D:\practice\boot\practice_mapper\src\main\resources" />
       <recent name="D:\practice\boot\src\main" />
       <recent name="D:\practice\boot\src\main\resources" />
     </key>
@@ -67,7 +69,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.GeneratorDisplay">
+  <component name="RunManager" selected="Spring Boot.Application">
     <configuration name="GeneratorDisplay" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.eastnorth.GeneratorDisplay" />
       <module name="boot" />
@@ -96,8 +98,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.GeneratorDisplay" />
         <item itemvalue="Spring Boot.Application" />
+        <item itemvalue="Application.GeneratorDisplay" />
       </list>
     </recent_temporary>
   </component>
@@ -119,7 +121,7 @@
       <workItem from="1585727446463" duration="698000" />
       <workItem from="1586172596339" duration="24000" />
       <workItem from="1586230268552" duration="3901000" />
-      <workItem from="1586255667043" duration="17373000" />
+      <workItem from="1586255667043" duration="20196000" />
     </task>
     <servers />
   </component>
