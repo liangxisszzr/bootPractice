@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aa91c7e0-b118-436f-b1a3-fd306af8eaad" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/practice_api/src/main/java/com/eastnorth/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/practice_api/src/main/java/com/eastnorth/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/practice_api/target/classes/com/eastnorth/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/practice_api/target/classes/com/eastnorth/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/practice_api/src/main/java/com/eastnorth/controller/StuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/practice_api/src/main/java/com/eastnorth/controller/StuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/practice_api/target/classes/com/eastnorth/controller/StuController.class" beforeDir="false" afterPath="$PROJECT_DIR$/practice_api/target/classes/com/eastnorth/controller/StuController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/practice_service/src/main/java/com/eastnorth/impl/StuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/practice_service/src/main/java/com/eastnorth/impl/StuServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/practice_service/target/classes/com/eastnorth/impl/StuServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/practice_service/target/classes/com/eastnorth/impl/StuServiceImpl.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,6 +23,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -30,7 +34,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/practice_mapper/src/main/java/com/eastnorth" />
+    <property name="last_opened_file_path" value="D:/newWork" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -46,6 +50,9 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.eastnorth.controller" />
+      <recent name="com.eastnorth.impl" />
+      <recent name="com.eastnorth.service" />
       <recent name="com.eastnorth.my.mapper" />
       <recent name="com.eastnorth" />
     </key>
@@ -121,7 +128,7 @@
       <workItem from="1585727446463" duration="698000" />
       <workItem from="1586172596339" duration="24000" />
       <workItem from="1586230268552" duration="3901000" />
-      <workItem from="1586255667043" duration="20196000" />
+      <workItem from="1586255667043" duration="43208000" />
     </task>
     <servers />
   </component>
