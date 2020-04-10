@@ -3,6 +3,8 @@ package com.eastnorth.controller;
 import com.eastnorth.pojo.bo.UserBO;
 import com.eastnorth.service.UserService;
 import com.eastnorth.utils.ResponseBean;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * @date   2020/4/8
  * @Description:
  */
+@Api(value = "注册登录", tags = {"用于注册登录的相关接口"})
 @RestController
 @RequestMapping("/passport")
 public class PassportController {
@@ -20,6 +23,7 @@ public class PassportController {
     @Autowired
     private UserService userService;
 
+    @ApiOperation(value = "用户名是否存在", notes = "用户名是否存在", httpMethod = "GET")
     @GetMapping("/usernameIsExist")
     public HttpStatus usernameIsExist(@RequestParam String username) {
 
@@ -38,6 +42,7 @@ public class PassportController {
         return HttpStatus.OK;
     }
 
+    @ApiOperation(value = "用户注册", notes = "用户注册", httpMethod = "POST")
     @PostMapping("/register")
     public ResponseBean register(@RequestBody UserBO userBO) {
 

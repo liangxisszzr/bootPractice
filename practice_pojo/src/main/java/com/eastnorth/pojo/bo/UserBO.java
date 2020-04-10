@@ -1,13 +1,21 @@
 package com.eastnorth.pojo.bo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * @Auther: zuojianhou
  * @Date: 2020/4/9
  * @Description:
  */
+@ApiModel(value = "用户对象", description = "从客户端,由用户传入的数据封装在此entity中")
 public class UserBO {
+
+    @ApiModelProperty(value = "用户名", name = "username", example = "zhangsan", required = true)
     private String username;
+    @ApiModelProperty(value = "用户密码", name = "password", example = "123456a?", required = true)
     private String password;
+    @ApiModelProperty(value = "确认密码", name = "confirmPassword", example = "123456a?", required = true)
     private String confirmPassword;
 
     public String getUsername() {
