@@ -43,7 +43,7 @@ public class PassportController {
     }
 
     @ApiOperation(value = "用户注册", notes = "用户注册", httpMethod = "POST")
-    @PostMapping("/register")
+    @PostMapping("/regist")
     public ResponseBean register(@RequestBody UserBO userBO) {
 
         ResponseBean responseBean = new ResponseBean();

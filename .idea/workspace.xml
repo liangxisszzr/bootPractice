@@ -2,6 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aa91c7e0-b118-436f-b1a3-fd306af8eaad" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/practice_api/src/main/java/com/eastnorth/aspect/ServiceLogAspect.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/practice_api/src/main/java/com/eastnorth/config/CorsConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/practice_api/src/main/resources/log4j.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/practice_api/target/classes/com/eastnorth/aspect/ServiceLogAspect.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/practice_api/target/classes/com/eastnorth/config/CorsConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/practice_api/target/classes/log4j.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/practice_common/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/practice_common/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/practice_mapper/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/practice_mapper/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/practice_pojo/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/practice_pojo/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/practice_service/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/practice_service/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/practice_api/src/main/java/com/eastnorth/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/practice_api/src/main/java/com/eastnorth/controller/TestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/practice_api/target/classes/com/eastnorth/controller/TestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/practice_api/target/classes/com/eastnorth/controller/TestController.class" afterDir="false" />
@@ -140,7 +154,7 @@
       <workItem from="1586479698532" duration="6645000" />
       <workItem from="1586511573885" duration="106000" />
       <workItem from="1586512659550" duration="1218000" />
-      <workItem from="1586565852905" duration="14659000" />
+      <workItem from="1586565852905" duration="14922000" />
     </task>
     <servers />
   </component>
