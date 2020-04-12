@@ -163,4 +163,23 @@ public class PassportController {
         user.setBirthday(null);
         return user;
     }
+
+    @ApiOperation(value = "用户退出登录", notes = "用户退出登录", httpMethod = "POST")
+    @PostMapping("/logout")
+    public ResponseBean logout(@RequestParam String userId, HttpServletRequest request, HttpServletResponse response) {
+
+        ResponseBean responseBean = new ResponseBean();
+
+        // 清除用户的相关信息的cookie
+        CookieUtils.deleteCookie(request, response, "user");
+
+        // TODO: 2020/4/12  用户退出登录，需要清空购物车
+        // TODO: 2020/4/12  分布式会话中需要清除用户数据
+
+        responseBean.setStatus(200);
+        responseBean.setResult(true);
+        responseBean.setMsg("用户退出成功");
+        responseBean.setData(null);
+        return responseBean;
+    }
 }
