@@ -1,7 +1,10 @@
 package com.eastnorth.controller;
 
+import com.eastnorth.pojo.Users;
 import com.eastnorth.pojo.bo.UserBO;
 import com.eastnorth.service.UserService;
+import com.eastnorth.utils.CookieUtils;
+import com.eastnorth.utils.JsonUtils;
 import com.eastnorth.utils.ResponseBean;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,6 +12,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author zuojianhou
@@ -44,7 +50,7 @@ public class PassportController {
 
     @ApiOperation(value = "用户注册", notes = "用户注册", httpMethod = "POST")
     @PostMapping("/regist")
-    public ResponseBean register(@RequestBody UserBO userBO) {
+    public ResponseBean register(@RequestBody UserBO userBO, HttpServletRequest request, HttpServletResponse response) {
 
         ResponseBean responseBean = new ResponseBean();
 
@@ -88,11 +94,73 @@ public class PassportController {
             return responseBean;
         }
         // 4.实现注册
-        userService.createUser(userBO);
+        Users userResult = userService.createUser(userBO);
+
+        userResult = this.setNullProperty(userResult);
+
+        CookieUtils.setCookie(request, response, "user", JsonUtils.objectToJson(userResult), true);
+
+
         responseBean.setResult(true);
         responseBean.setStatus(200);
         responseBean.setMsg("用户创建成功");
         responseBean.setData(userBO.toString());
         return responseBean;
+    }
+
+    @ApiOperation(value = "用户登录", notes = "用户登录", httpMethod = "POST")
+    @PostMapping("/login")
+    public ResponseBean login(@RequestBody UserBO userBO, HttpServletRequest request, HttpServletResponse response) {
+
+        ResponseBean responseBean = new ResponseBean();
+
+        String username = userBO.getUsername();
+        String password = userBO.getPassword();
+
+        // 0.判断用户名和密码必须不为空
+        if (StringUtils.isBlank(username) ||
+                StringUtils.isBlank(password)) {
+            responseBean.setResult(false);
+            responseBean.setStatus(400);
+            responseBean.setMsg("用户名或密码不能为空");
+            responseBean.setData(userBO.toString());
+            return responseBean;
+        }
+
+        // 1.实现登录
+        Users userResult = userService.queryUserForLogin(username, password);
+
+        if (userResult == null) {
+            responseBean.setResult(false);
+            responseBean.setStatus(400);
+            responseBean.setMsg("用户名或密码不正确");
+            responseBean.setData(userBO.toString());
+            return responseBean;
+        }
+
+        userResult = this.setNullProperty(userResult);
+
+        CookieUtils.setCookie(request, response, "user", JsonUtils.objectToJson(userResult), true);
+
+        responseBean.setResult(true);
+        responseBean.setStatus(200);
+        responseBean.setMsg("登录成功");
+        responseBean.setData(userResult);
+        return responseBean;
+    }
+
+    /**
+     * 设置返回 null值保密
+     * @param user 初始返回值
+     * @return user
+     */
+    private Users setNullProperty(Users user) {
+        user.setPassword(null);
+        user.setMobile(null);
+        user.setEmail(null);
+        user.setCreatedTime(null);
+        user.setUpdatedTime(null);
+        user.setBirthday(null);
+        return user;
     }
 }

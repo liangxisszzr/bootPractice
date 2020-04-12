@@ -19,9 +19,16 @@ public interface UserService {
 
     /**
      * 创建用户
-     * @param userBO
-     * @return
+     * @param userBO 用户输入
+     * @return 用户实例
      */
     Users createUser(UserBO userBO);
 
+    /**
+     * 检索用户名和密码是否匹配，用于登录
+     * @param username
+     * @param password
+     * @return
+     */
+    Users queryUserForLogin(String username, String password);
 }
