@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eastnorth.mapper.CategoryMapperCustom" >
+
+    <!-- 查询子分类 -->
+    <select id="getSubCatList" parameterType="int" resultMap="myCategoryVO">
+        SELECT
+            f.id as id,
+            f.`name` as `name`,
+            f.type as type,
+            f.father_id as fatherId,
+            c.id as subId,
+            c.`name` as subName,
+            c.type as subType,
+            c.father_id as subFatherId
+        FROM `category` f LEFT JOIN category c on f.id = c.father_id
+        WHERE f.father_id = #{rootCatId}
+    </select>
+
+    <!--
+      collection: 用于定义关联的 list 集合类型的封装规则
+      property: 对应三级分类的 list 属性名
+      ofType: 集合的类型, 三级分类的 VO
+    -->
+    <resultMap id="myCategoryVO" type="com.eastnorth.pojo.vo.CategoryVO">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="type" property="type"/>
+        <result column="name" property="name"/>
+        <result column="fatherId" property="fatherId"/>
+        <collection property="subCatList" ofType="com.eastnorth.pojo.vo.SubCategoryVO">
+            <id column="subId" property="subId" jdbcType="INTEGER"/>
+            <result column="subType" property="subType"/>
+            <result column="subName" property="subName"/>
+            <result column="subFatherId" property="subFatherId"/>
+        </collection>
+    </resultMap>
+    
+</mapper>
