@@ -1,4 +1,4 @@
-package com.eastnorth.utils;
+package com.eastnorth.enums;
 
 /**
  * @author zuojianhou
