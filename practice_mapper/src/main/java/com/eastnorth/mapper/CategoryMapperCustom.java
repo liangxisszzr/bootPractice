@@ -1,9 +1,11 @@
 package com.eastnorth.mapper;
 
 import com.eastnorth.pojo.vo.CategoryVO;
+import com.eastnorth.pojo.vo.NewItemsVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zuojianhou
@@ -19,4 +21,5 @@ public interface CategoryMapperCustom {
      */
     List<CategoryVO> getSubCatList(@Param("rootCatId") Integer rootCatId);
 
+    List<NewItemsVO> getSixNewItemsLazy(@Param("paramsMap") Map<String, Object> map);
 }

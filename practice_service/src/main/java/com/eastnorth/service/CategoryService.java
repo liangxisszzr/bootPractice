@@ -2,6 +2,7 @@ package com.eastnorth.service;
 
 import com.eastnorth.pojo.Category;
 import com.eastnorth.pojo.vo.CategoryVO;
+import com.eastnorth.pojo.vo.NewItemsVO;
 
 import java.util.List;
 
@@ -24,4 +25,11 @@ public interface CategoryService {
      * @return list
      */
     List<CategoryVO> getSubCatList(Integer rootCatId);
+
+    /**
+     * 查询首页每个一级分类下的 6 条最新商品数据
+     * @param rootCatId 父级 id
+     * @return list
+     */
+    List<NewItemsVO> getSixNewItemsLazy(Integer rootCatId);
 }
