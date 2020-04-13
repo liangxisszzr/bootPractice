@@ -1,4 +1,4 @@
-package com.eastnorth.utils;
+package com.eastnorth.bean;
 
 /**
  * @author zuojianhou

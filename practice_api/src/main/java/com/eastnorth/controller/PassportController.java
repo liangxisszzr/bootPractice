@@ -5,7 +5,7 @@ import com.eastnorth.pojo.bo.UserBO;
 import com.eastnorth.service.UserService;
 import com.eastnorth.utils.CookieUtils;
 import com.eastnorth.utils.JsonUtils;
-import com.eastnorth.utils.ResponseBean;
+import com.eastnorth.bean.ResponseBean;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
