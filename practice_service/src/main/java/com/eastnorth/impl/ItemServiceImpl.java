@@ -5,6 +5,7 @@ import com.eastnorth.mapper.*;
 import com.eastnorth.pojo.*;
 import com.eastnorth.pojo.vo.CommentLevelCountsVO;
 import com.eastnorth.pojo.vo.ItemCommentVO;
+import com.eastnorth.pojo.vo.SearchItemsVO;
 import com.eastnorth.service.ItemService;
 import com.eastnorth.utils.DesensitizationUtil;
 import com.eastnorth.utils.PagedGridResult;
@@ -139,5 +140,32 @@ public class ItemServiceImpl implements ItemService {
         grid.setRecords(pageList.getTotal());
 
         return grid;
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public PagedGridResult searchItems(String keywords, String sort, Integer page, Integer pageSize) {
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("keywords", keywords);
+        map.put("sort", sort);
+
+        PageHelper.startPage(page, pageSize);
+        List<SearchItemsVO> list = itemsMapperCustom.searchItems(map);
+
+        return setterPagedGrid(list, page);
+    }
+
+    @Override
+    public PagedGridResult searchItemsByThirdCat(Integer catId, String sort, Integer page, Integer pageSize) {
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("catId", catId);
+        map.put("sort", sort);
+
+        PageHelper.startPage(page, pageSize);
+        List<SearchItemsVO> list = itemsMapperCustom.searchItemsByThirdCat(map);
+
+        return setterPagedGrid(list, page);
     }
 }
