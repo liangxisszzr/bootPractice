@@ -35,7 +35,7 @@
         </collection>
     </resultMap>
 
-    <!--  -->
+    <!-- 首页分类商品项 -->
     <select id="getSixNewItemsLazy" resultMap="myNewItemVO" parameterType="map">
         SELECT
             f.id as rootCatId,
@@ -53,6 +53,7 @@
         LIMIT 0,6
     </select>
 
+    <!-- 首页分类商品项结果集 -->
     <resultMap id="myNewItemVO" type="com.eastnorth.pojo.vo.NewItemsVO">
         <id column="rootCatId" property="rootCatId"/>
         <result column="rootCatName" property="rootCatName"/>

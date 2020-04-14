@@ -1,25 +1,28 @@
 package com.eastnorth.impl;
 
-import com.eastnorth.mapper.ItemsImgMapper;
-import com.eastnorth.mapper.ItemsMapper;
-import com.eastnorth.mapper.ItemsParamMapper;
-import com.eastnorth.mapper.ItemsSpecMapper;
-import com.eastnorth.pojo.Items;
-import com.eastnorth.pojo.ItemsImg;
-import com.eastnorth.pojo.ItemsParam;
-import com.eastnorth.pojo.ItemsSpec;
+import com.eastnorth.enums.CommentLevel;
+import com.eastnorth.mapper.*;
+import com.eastnorth.pojo.*;
+import com.eastnorth.pojo.vo.CommentLevelCountsVO;
+import com.eastnorth.pojo.vo.ItemCommentVO;
 import com.eastnorth.service.ItemService;
+import com.eastnorth.utils.DesensitizationUtil;
+import com.eastnorth.utils.PagedGridResult;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zuojianhou
- * @date   2020/4/14
+ * @date 2020/4/14
  * @Description:
  */
 @Service
@@ -33,6 +36,10 @@ public class ItemServiceImpl implements ItemService {
     private ItemsSpecMapper itemsSpecMapper;
     @Autowired
     private ItemsParamMapper itemsParamMapper;
+    @Autowired
+    private ItemsCommentsMapper itemsCommentsMapper;
+    @Autowired
+    private ItemsMapperCustom itemsMapperCustom;
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
@@ -69,5 +76,68 @@ public class ItemServiceImpl implements ItemService {
         criteria.andEqualTo("itemId", itemId);
 
         return itemsParamMapper.selectOneByExample(itemsParamExp);
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public CommentLevelCountsVO queryCommentCounts(String itemId) {
+
+        Integer goodCounts = this.getCommonCounts(itemId, CommentLevel.GOOD.type);
+        Integer normalCounts = this.getCommonCounts(itemId, CommentLevel.NORMAL.type);
+        Integer badCounts = this.getCommonCounts(itemId, CommentLevel.BAD.type);
+
+        Integer totalCounts = goodCounts + normalCounts + badCounts;
+
+        CommentLevelCountsVO countsVO = new CommentLevelCountsVO();
+        countsVO.setTotalCounts(totalCounts);
+        countsVO.setGoodCounts(goodCounts);
+        countsVO.setNormalCounts(normalCounts);
+        countsVO.setBadCounts(badCounts);
+
+        return countsVO;
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    Integer getCommonCounts(String itemId, Integer level) {
+
+        ItemsComments condition = new ItemsComments();
+        condition.setItemId(itemId);
+        if (level != null) {
+            condition.setCommentLevel(level);
+        }
+
+        return itemsCommentsMapper.selectCount(condition);
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public PagedGridResult queryPagedComments(String itemId, Integer level, Integer page, Integer pageSize) {
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("itemId", itemId);
+        map.put("level", level);
+
+        // mybatis-pageHelper page: 页数, pageSize: 显示数
+        PageHelper.startPage(page, pageSize);
+
+        List<ItemCommentVO> list = itemsMapperCustom.queryItemComments(map);
+
+        for (ItemCommentVO vo : list) {
+            vo.setNickName(DesensitizationUtil.commonDisplay(vo.getNickName()));
+        }
+
+        return setterPagedGrid(list, page);
+    }
+
+    private PagedGridResult setterPagedGrid(List<?> list, Integer page) {
+
+        PageInfo<?> pageList = new PageInfo<>(list);
+        PagedGridResult grid = new PagedGridResult();
+        grid.setPage(page);
+        grid.setRows(list);
+        grid.setTotal(pageList.getPages());
+        grid.setRecords(pageList.getTotal());
+
+        return grid;
     }
 }
