@@ -4,6 +4,8 @@ import com.eastnorth.mapper.UsersMapper;
 import com.eastnorth.pojo.Users;
 import com.eastnorth.pojo.bo.UserBO;
 import com.eastnorth.service.UserService;
+import com.eastnorth.utils.DateUtil;
+import com.eastnorth.utils.Sid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -22,6 +24,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UsersMapper usersMapper;
+    @Autowired
+    private Sid sid;
 
     private static final String USER_FACE = "http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png";
 
@@ -39,7 +43,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users createUser(UserBO userBO) {
         Users user = new Users();
-        user.setId("1");
+        user.setId(sid.nextShort());
         user.setUsername(userBO.getUsername());
         user.setPassword(userBO.getPassword());
         //昵称默认用户名
@@ -47,7 +51,7 @@ public class UserServiceImpl implements UserService {
         //默认头像
         user.setFace(USER_FACE);
         //默认生日
-        user.setBirthday(new Date());
+        user.setBirthday(DateUtil.convertToDate("1996-09-12"));
         //默认性别
         user.setSex(2);
         user.setCreatedTime(new Date());
