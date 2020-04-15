@@ -6,6 +6,7 @@ import com.eastnorth.pojo.ItemsParam;
 import com.eastnorth.pojo.ItemsSpec;
 import com.eastnorth.pojo.vo.CommentLevelCountsVO;
 import com.eastnorth.pojo.vo.ItemCommentVO;
+import com.eastnorth.pojo.vo.ShopcartVO;
 import com.eastnorth.utils.PagedGridResult;
 
 import java.util.List;
@@ -81,5 +82,12 @@ public interface ItemService {
      * @return 分类查询结果
      */
     PagedGridResult searchItemsByThirdCat(Integer catId, String sort, Integer page, Integer pageSize);
+
+    /**
+     * 根据商品规格 id 查询商品信息（刷新购物车）
+     * @param specIds 规格 id
+     * @return 购物车商品list
+     */
+    List<ShopcartVO> queryItemsBySpecIds(String specIds);
 
 }

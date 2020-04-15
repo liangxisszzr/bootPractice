@@ -2,6 +2,7 @@ package com.eastnorth.mapper;
 
 import com.eastnorth.pojo.vo.ItemCommentVO;
 import com.eastnorth.pojo.vo.SearchItemsVO;
+import com.eastnorth.pojo.vo.ShopcartVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -35,4 +36,10 @@ public interface ItemsMapperCustom {
      */
     List<SearchItemsVO> searchItemsByThirdCat(@Param("paramsMap") Map<String, Object> map);
 
+    /**
+     * 根据商品规格 id 查询商品信息（刷新购物车）
+     * @param specIdsList 规格 id
+     * @return 购物车商品list
+     */
+    List<ShopcartVO> queryItemsBySpecIds(@Param("paramsList") List specIdsList);
 }
