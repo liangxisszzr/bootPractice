@@ -5,7 +5,6 @@ import com.eastnorth.mapper.UserAddressMapper;
 import com.eastnorth.pojo.UserAddress;
 import com.eastnorth.pojo.bo.AddressBO;
 import com.eastnorth.service.AddressService;
-import com.eastnorth.service.UserService;
 import com.eastnorth.utils.Sid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,5 +103,16 @@ public class AddressServiceImpl implements AddressService {
         defaultAddress.setUserId(userId);
         defaultAddress.setIsDefault(YesOrNo.YES.type);
         userAddressMapper.updateByPrimaryKeySelective(defaultAddress);
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public UserAddress queryUserAddress(String userId, String addressId) {
+
+        UserAddress address = new UserAddress();
+        address.setId(addressId);
+        address.setUserId(userId);
+
+        return userAddressMapper.selectOne(address);
     }
 }

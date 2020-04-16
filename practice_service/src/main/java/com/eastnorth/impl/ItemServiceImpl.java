@@ -1,6 +1,7 @@
 package com.eastnorth.impl;
 
 import com.eastnorth.enums.CommentLevel;
+import com.eastnorth.enums.YesOrNo;
 import com.eastnorth.mapper.*;
 import com.eastnorth.pojo.*;
 import com.eastnorth.pojo.vo.CommentLevelCountsVO;
@@ -179,5 +180,23 @@ public class ItemServiceImpl implements ItemService {
         Collections.addAll(specIdsList, ids);
 
         return itemsMapperCustom.queryItemsBySpecIds(specIdsList);
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public ItemsSpec queryItemSpecById(String specId) {
+        return itemsSpecMapper.selectByPrimaryKey(specId);
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public String queryItemMainImgById(String itemId) {
+
+        ItemsImg itemsImg = new ItemsImg();
+        itemsImg.setItemId(itemId);
+        itemsImg.setIsMain(YesOrNo.YES.type);
+        ItemsImg result = itemsImgMapper.selectOne(itemsImg);
+
+        return result != null ? result.getUrl() : "";
     }
 }
