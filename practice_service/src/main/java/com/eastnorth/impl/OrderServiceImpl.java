@@ -1,10 +1,14 @@
 package com.eastnorth.impl;
 
+import com.eastnorth.enums.OrderStatusEnum;
 import com.eastnorth.enums.YesOrNo;
 import com.eastnorth.mapper.OrderItemsMapper;
+import com.eastnorth.mapper.OrderStatusMapper;
 import com.eastnorth.mapper.OrdersMapper;
 import com.eastnorth.pojo.*;
 import com.eastnorth.pojo.bo.OrderSubmitBO;
+import com.eastnorth.pojo.vo.MerchantOrdersVO;
+import com.eastnorth.pojo.vo.OrderVO;
 import com.eastnorth.service.AddressService;
 import com.eastnorth.service.ItemService;
 import com.eastnorth.service.OrderService;
@@ -16,6 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
+/**
+ * @author zuojianhou
+ */
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -26,13 +33,15 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderItemsMapper orderItemsMapper;
     @Autowired
+    private OrderStatusMapper orderStatusMapper;
+    @Autowired
     private AddressService addressService;
     @Autowired
     private ItemService itemService;
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public void createOrder(OrderSubmitBO submitBO) {
+    public OrderVO createOrder(OrderSubmitBO submitBO) {
 
         String userId = submitBO.getUserId();
         String addressId = submitBO.getAddressId();
@@ -93,21 +102,56 @@ public class OrderServiceImpl implements OrderService {
             // 2.3 循环保存子订单数据到数据库
             String childOrderId = sid.nextShort();
             OrderItems subOrderItem = new OrderItems();
-            subOrderItem.setOrderId(childOrderId);
+            subOrderItem.setId(childOrderId);
             subOrderItem.setOrderId(orderId);
             subOrderItem.setItemId(itemId);
             subOrderItem.setItemName(item.getItemName());
             subOrderItem.setItemImg(imgUrl);
+            subOrderItem.setBuyCounts(buyCounts);
             subOrderItem.setItemSpecId(itemSpecId);
             subOrderItem.setItemSpecName(itemSpec.getName());
             subOrderItem.setPrice(itemSpec.getPriceDiscount());
-
             orderItemsMapper.insert(subOrderItem);
+
+            // 2.4 在用户提交订单以后，规格表中需要扣除库存
+            itemService.decreaseItemSpecStock(itemSpecId, buyCounts);
         }
         newOrder.setTotalAmount(totalAmount);
         newOrder.setRealPayAmount(realPayAmount);
         ordersMapper.insert(newOrder);
 
         // 3. 保存订单状态表
+        OrderStatus waitPayOrderStatus = new OrderStatus();
+        waitPayOrderStatus.setOrderId(orderId);
+        waitPayOrderStatus.setOrderStatus(OrderStatusEnum.WAIT_PAY.type);
+        waitPayOrderStatus.setCreatedTime(new Date());
+        orderStatusMapper.insert(waitPayOrderStatus);
+
+        // 4. 构建商户订单，用于传给支付中心
+        MerchantOrdersVO merchantOrdersVO = new MerchantOrdersVO();
+        merchantOrdersVO.setMerchantOrderId(orderId);
+        merchantOrdersVO.setMerchantUserId(userId);
+        merchantOrdersVO.setAmount(realPayAmount + postAmount);
+        merchantOrdersVO.setPayMethod(payMethod);
+
+        // 5. 构建自定义订单 vo
+        OrderVO orderVO = new OrderVO();
+        orderVO.setOrderId(orderId);
+        orderVO.setMerchantOrdersVO(merchantOrdersVO);
+
+        return orderVO;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public void updateOrderStatus(String orderId, Integer orderStatus) {
+
+        OrderStatus paidStatus = new OrderStatus();
+        paidStatus.setOrderId(orderId);
+        paidStatus.setOrderStatus(orderStatus);
+        paidStatus.setPayTime(new Date());
+
+        orderStatusMapper.updateByPrimaryKeySelective(paidStatus);
+
     }
 }

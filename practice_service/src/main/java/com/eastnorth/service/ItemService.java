@@ -5,7 +5,6 @@ import com.eastnorth.pojo.ItemsImg;
 import com.eastnorth.pojo.ItemsParam;
 import com.eastnorth.pojo.ItemsSpec;
 import com.eastnorth.pojo.vo.CommentLevelCountsVO;
-import com.eastnorth.pojo.vo.ItemCommentVO;
 import com.eastnorth.pojo.vo.ShopcartVO;
 import com.eastnorth.utils.PagedGridResult;
 
@@ -104,4 +103,10 @@ public interface ItemService {
      */
     String queryItemMainImgById(String itemId);
 
+    /**
+     * 提交订单时减少库存
+     * @param specId 规格 id
+     * @param buyCounts 购买数量
+     */
+    void decreaseItemSpecStock(String specId, int buyCounts);
 }
