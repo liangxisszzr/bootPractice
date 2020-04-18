@@ -2,6 +2,7 @@ package com.eastnorth.controller;
 
 import com.eastnorth.enums.OrderStatusEnum;
 import com.eastnorth.enums.PayMethod;
+import com.eastnorth.pojo.OrderStatus;
 import com.eastnorth.pojo.bo.OrderSubmitBO;
 import com.eastnorth.pojo.vo.MerchantOrdersVO;
 import com.eastnorth.pojo.vo.OrderVO;
@@ -73,12 +74,21 @@ public class OrdersController extends BaseController {
         return IMOOCJSONResult.ok(orderId);
     }
 
-    @PostMapping("notifyMerchantOrderPaid")
+    @PostMapping("/notifyMerchantOrderPaid")
     public Integer notifyMerchantOrderPaid(String merchantOrderId) {
 
         orderService.updateOrderStatus(merchantOrderId, OrderStatusEnum.WAIT_DELIVER.type);
 
         return HttpStatus.OK.value();
+
+    }
+
+    @PostMapping("/getPaodOrderInfo")
+    public IMOOCJSONResult getPaidOrderInfo(String orderId) {
+
+        OrderStatus orderStatus = orderService.queryOrderStatusInfo(orderId);
+
+        return IMOOCJSONResult.ok(orderStatus);
 
     }
 }
