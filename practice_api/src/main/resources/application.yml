@@ -15,7 +15,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/east_north_boot?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
     username: root
-    password: 123456a?
+    password: root
     hikari:
       connection-timeout: 30000             # 等待连接池分配连接的最大时长（毫秒）
       minimum-idle: 5                       # 最小连接数
@@ -25,7 +25,10 @@ spring:
       pool-name: DateSourceHikariCP         # 连接池名字
       max-lifetime: 1800000                 # 连接的生命时长（毫秒）
       connection-test-query: SELECT 1
-
+  servlet:
+    multipart:
+      max-file-size: 512000                  # 文件上传大小限制为 500 kb
+      max-request-size: 512000              # 请求大小限制为 500 kb
 #############################################
 #
 #   mybatis配置
