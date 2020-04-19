@@ -1,5 +1,9 @@
 package com.eastnorth.controller;
 
+import com.eastnorth.pojo.Orders;
+import com.eastnorth.service.center.MyOrdersService;
+import com.eastnorth.utils.IMOOCJSONResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 /**
@@ -12,6 +16,7 @@ public class BaseController {
 
     /** 分页常量 */
     static final Integer COMMENT_PAGE_SIZE = 10;
+    protected static final Integer COMMON_PAGE_SIZE = 10;
     static final Integer PAGE_SIZE = 20;
 
     /** cookie常量 */
@@ -22,5 +27,20 @@ public class BaseController {
 
     /** 支付中心 url */
     static final String PAY_MENT_URL = "http://payment.t.mukewang.com/foodie-payment/payment/createMerchantOrder";
+
+    @Autowired
+    public MyOrdersService myOrdersService;
+
+    /**
+     * 用于验证用户和订单是否有关联关系，避免非法用户调用
+     * @return
+     */
+    public IMOOCJSONResult checkUserOrder(String userId, String orderId) {
+        Orders order = myOrdersService.queryMyOrder(userId, orderId);
+        if (order == null) {
+            return IMOOCJSONResult.errorMsg("订单不存在！");
+        }
+        return IMOOCJSONResult.ok(order);
+    }
 
 }

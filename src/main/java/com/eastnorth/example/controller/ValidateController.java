@@ -23,10 +23,10 @@ public class ValidateController {
     public void val(@Valid @RequestBody ValidBean bean, BindingResult result) throws Exception {
 
         if(result.hasErrors()){
-            //如果没有通过,跳转提示    
+            //如果没有通过,跳转提示
             Map<String, String> map = getErrors(result);
         }else{
-            //继续业务逻辑    
+            //继续业务逻辑
         }
     }
 
