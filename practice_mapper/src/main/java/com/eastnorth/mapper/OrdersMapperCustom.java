@@ -9,10 +9,25 @@ import java.util.Map;
 
 public interface OrdersMapperCustom {
 
-    public List<MyOrdersVO> queryMyOrders(@Param("paramsMap") Map<String, Object> map);
+    /**
+     * 查询订单
+     * @param map 查询条件
+     * @return 订单列表集合
+     */
+    List<MyOrdersVO> queryMyOrders(@Param("paramsMap") Map<String, Object> map);
 
-    public int getMyOrderStatusCounts(@Param("paramsMap") Map<String, Object> map);
+    /**
+     * 获取不同状态订单总数
+     * @param map 查询条件
+     * @return 总数
+     */
+    int getMyOrderStatusCounts(@Param("paramsMap") Map<String, Object> map);
 
-    public List<OrderStatus> getMyOrderTrend(@Param("paramsMap") Map<String, Object> map);
+    /**
+     *
+     * @param map
+     * @return
+     */
+    List<OrderStatus> getMyOrderTrend(@Param("paramsMap") Map<String, Object> map);
 
 }
