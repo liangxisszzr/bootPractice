@@ -28,7 +28,28 @@ spring:
   servlet:
     multipart:
       max-file-size: 512000                  # 文件上传大小限制为 500 kb
-      max-request-size: 512000              # 请求大小限制为 500 kb
+      max-request-size: 512000               # 请求大小限制为 500 kb
+#  jpa:
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#  redis:
+#    database: 0
+#    host: localhost
+#    port: 6379
+#  data:
+#    mongodb:
+#      database:
+#        host:
+#        port:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+  security:
+    user:
+      name: superadmin
+      password: superadmin
 #############################################
 #
 #   mybatis配置
