@@ -11,7 +11,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  * @Description:
  */
 @MapperScan(basePackages = "com.eastnorth.mapper")
-@EnableScheduling
+//@EnableScheduling
 @SpringBootApplication
 public class Application {
     public static void main(String[] args) {

@@ -1,5 +1,5 @@
 server:
-  port: 8765
+#  port: 8765
   tomcat:
     uri-encoding: UTF-8
   max-http-header-size: 80KB
@@ -10,6 +10,8 @@ server:
 #
 #############################################
 spring:
+  profiles:
+    active: dev
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.jdbc.Driver
@@ -43,13 +45,13 @@ spring:
 #      database:
 #        host:
 #        port:
-  thymeleaf:
-    prefix: classpath:/templates/
-    suffix: .html
-  security:
-    user:
-      name: superadmin
-      password: superadmin
+#  thymeleaf:
+#    prefix: classpath:/templates/
+#    suffix: .html
+#  security:
+#    user:
+#      name: superadmin
+#      password: superadmin
 #############################################
 #
 #   mybatis配置
