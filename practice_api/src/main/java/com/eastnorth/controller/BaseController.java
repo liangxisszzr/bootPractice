@@ -23,7 +23,7 @@ public class BaseController {
     static final String FOODIE_SHOPCART = "shopcart";
 
     /** 微信支付成功 --> 支付中心 --> 平台项目 */
-    static final String PAY_RETURN_URL = "http://localhost:8765/orders/notifyMerchanOrderPaid";
+    static final String PAY_RETURN_URL = "http://192.168.204.128:8765/practice_api/orders/notifyMerchanOrderPaid";
 
     /** 支付中心 url */
     static final String PAY_MENT_URL = "http://payment.t.mukewang.com/foodie-payment/payment/createMerchantOrder";
