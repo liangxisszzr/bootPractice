@@ -24,9 +24,9 @@ public interface OrdersMapperCustom {
     int getMyOrderStatusCounts(@Param("paramsMap") Map<String, Object> map);
 
     /**
-     *
-     * @param map
-     * @return
+     * 订单动向查询
+     * @param map 查询条件
+     * @return 订单状态结果集
      */
     List<OrderStatus> getMyOrderTrend(@Param("paramsMap") Map<String, Object> map);
 
