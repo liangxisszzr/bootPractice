@@ -36,10 +36,11 @@ spring:
 #    properties:
 #      hibernate:
 #        format_sql: true
-#  redis:
-#    database: 0
-#    host: localhost
-#    port: 6379
+  redis:
+    database: 0
+    host: 192.168.204.128
+    port: 6379
+    password: 123456a?
 #  data:
 #    mongodb:
 #      database:
