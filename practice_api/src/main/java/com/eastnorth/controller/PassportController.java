@@ -6,15 +6,18 @@ import com.eastnorth.service.UserService;
 import com.eastnorth.utils.CookieUtils;
 import com.eastnorth.utils.JsonUtils;
 import com.eastnorth.bean.ResponseBean;
+import com.eastnorth.utils.RedisOperator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 /**
  * @author zuojianhou
@@ -24,10 +27,12 @@ import javax.servlet.http.HttpServletResponse;
 @Api(value = "注册登录", tags = {"用于注册登录的相关接口"})
 @RestController
 @RequestMapping("/passport")
-public class PassportController {
+public class PassportController extends BaseController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RedisOperator redisOperator;
 
     @ApiOperation(value = "用户名是否存在", notes = "用户名是否存在", httpMethod = "GET")
     @GetMapping("/usernameIsExist")
@@ -96,9 +101,16 @@ public class PassportController {
         // 4.实现注册
         Users userResult = userService.createUser(userBO);
 
-        userResult = this.setNullProperty(userResult);
+//        userResult = this.setNullProperty(userResult);
 
-        CookieUtils.setCookie(request, response, "user", JsonUtils.objectToJson(userResult), true);
+        // 实现用户的redis会话
+        String uniqueToken = UUID.randomUUID().toString().trim();
+        redisOperator.set(REDIS_USER_TOKEN + ":" + userResult.getId(), uniqueToken);
+
+        UsersVO usersVO = new UsersVO();
+        BeanUtils.copyProperties(userResult, usersVO);
+
+        CookieUtils.setCookie(request, response, "user", JsonUtils.objectToJson(usersVO), true);
 
 
         responseBean.setResult(true);

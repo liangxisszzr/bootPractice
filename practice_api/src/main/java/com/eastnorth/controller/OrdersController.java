@@ -4,13 +4,17 @@ import com.eastnorth.enums.OrderStatusEnum;
 import com.eastnorth.enums.PayMethod;
 import com.eastnorth.pojo.OrderStatus;
 import com.eastnorth.pojo.bo.OrderSubmitBO;
+import com.eastnorth.pojo.bo.ShopcartBO;
 import com.eastnorth.pojo.vo.MerchantOrdersVO;
 import com.eastnorth.pojo.vo.OrderVO;
 import com.eastnorth.service.OrderService;
 import com.eastnorth.utils.CookieUtils;
 import com.eastnorth.utils.IMOOCJSONResult;
+import com.eastnorth.utils.JsonUtils;
+import com.eastnorth.utils.RedisOperator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +25,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author zuojianhou
@@ -34,6 +39,8 @@ public class OrdersController extends BaseController {
     private OrderService orderService;
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private RedisOperator redisOperator;
 
     @ApiOperation(value = "用户下单", notes = "用户下单", httpMethod = "POST")
     @PostMapping("/create")
@@ -44,6 +51,12 @@ public class OrdersController extends BaseController {
         }
 
 //        System.out.println(orderSubmitBO.toString());
+        String shopCartJson = redisOperator.get(FOODIE_SHOPCART + ":" + orderSubmitBO.getUserId());
+        if (StringUtils.isBlank(shopCartJson)) {
+            return IMOOCJSONResult.errorMsg("购物车数据不正确");
+        }
+
+        List<ShopcartBO> shopCartList = JsonUtils.jsonToList(shopCartJson, ShopcartBO.class);
 
         // 1. 创建订单
         OrderVO orderVO =  orderService.createOrder(orderSubmitBO);

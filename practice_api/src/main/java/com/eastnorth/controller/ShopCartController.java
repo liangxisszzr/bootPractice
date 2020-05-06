@@ -2,13 +2,18 @@ package com.eastnorth.controller;
 
 import com.eastnorth.pojo.bo.ShopcartBO;
 import com.eastnorth.utils.IMOOCJSONResult;
+import com.eastnorth.utils.JsonUtils;
+import com.eastnorth.utils.RedisOperator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author zuojianhou
@@ -18,7 +23,10 @@ import javax.servlet.http.HttpServletResponse;
 @Api(value = "购物车接口controller", tags = {"购物车接口相关api"})
 @RequestMapping("/shopcart")
 @RestController
-public class ShopCartController {
+public class ShopCartController extends BaseController {
+
+    @Autowired
+    private RedisOperator redisOperator;
 
     @ApiOperation(value = "添加商品到购物车", notes = "添加商品到购物车", httpMethod = "POST")
     @PostMapping("/add")
@@ -30,7 +38,34 @@ public class ShopCartController {
 
         System.out.println(shopcartBO);
 
-        // TODO: 2020/4/15 前端用户在登录的情况下,添加商品到购物车,会同时在后端同步购物车到redis缓存
+        // 需要判断当前购物车中包含已经存在的商品,如果存在则累加购买数量
+        String shopCartJson = redisOperator.get(FOODIE_SHOPCART + ":" + userId);
+        List<ShopcartBO> shopCartList = null;
+        if (StringUtils.isNotEmpty(shopCartJson)) {
+            // redis中已经有购物车了
+            shopCartList = JsonUtils.jsonToList(shopCartJson, ShopcartBO.class);
+            // 判断购物车中是否存在已有商品,如果有的话 counts 累加
+            boolean isHaving = false;
+            for (ShopcartBO bo : shopCartList) {
+                String tmpSpecId = bo.getSpecId();
+                if (tmpSpecId.equals(shopcartBO.getSpecId())) {
+                    bo.setBuyCounts(bo.getBuyCounts() + shopcartBO.getBuyCounts());
+                    isHaving = true;
+                    break;
+                }
+            }
+            if (!isHaving) {
+                shopCartList.add(shopcartBO);
+            }
+        } else {
+            // redis中没有购物车
+            shopCartList = new ArrayList<>();
+            // 直接添加到购物车中
+            shopCartList.add(shopcartBO);
+        }
+
+        // 覆盖现有 redis 中的购物车
+        redisOperator.set(FOODIE_SHOPCART + ":" + userId, JsonUtils.objectToJson(shopCartList));
 
         return IMOOCJSONResult.ok();
     }
@@ -43,7 +78,21 @@ public class ShopCartController {
             return IMOOCJSONResult.errorMsg("参数不能为空");
         }
 
-        // TODO: 2020/4/15  用户在页面删除购物车中的商品数据,如果此时用户已经登录,则需要同步删除redis
+        String shopCartJson = redisOperator.get(FOODIE_SHOPCART + ":" + userId);
+        if (StringUtils.isNotEmpty(shopCartJson)) {
+            // redis 中有购物车
+            List<ShopcartBO> shopCartList = JsonUtils.jsonToList(shopCartJson, ShopcartBO.class);
+            // 判断购物车中是否存在已有商品,如果有的话则删除
+            for (ShopcartBO bo : shopCartList) {
+                String tmpSpecId = bo.getSpecId();
+                if (tmpSpecId.equals(itemSpecId)) {
+                    shopCartList.remove(bo);
+                    break;
+                }
+            }
+            // 覆盖现有redis中的购物车
+            redisOperator.set(FOODIE_SHOPCART + ":" +userId, JsonUtils.objectToJson(shopCartList));
+        }
         
         return IMOOCJSONResult.ok();
     }

@@ -19,6 +19,9 @@ public class BaseController {
     protected static final Integer COMMON_PAGE_SIZE = 10;
     static final Integer PAGE_SIZE = 20;
 
+    /** redis 单点登录 */
+    public static final String REDIS_USER_TOKEN = "redis_user_token";
+
     /** cookie常量 */
     static final String FOODIE_SHOPCART = "shopcart";
 
