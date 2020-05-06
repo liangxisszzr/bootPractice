@@ -2,6 +2,7 @@ package com.eastnorth.controller;
 
 import com.eastnorth.pojo.Users;
 import com.eastnorth.pojo.bo.UserBO;
+import com.eastnorth.pojo.vo.UsersVO;
 import com.eastnorth.service.UserService;
 import com.eastnorth.utils.CookieUtils;
 import com.eastnorth.utils.JsonUtils;
@@ -109,6 +110,7 @@ public class PassportController extends BaseController {
 
         UsersVO usersVO = new UsersVO();
         BeanUtils.copyProperties(userResult, usersVO);
+        usersVO.setUserUniqueToken(uniqueToken);
 
         CookieUtils.setCookie(request, response, "user", JsonUtils.objectToJson(usersVO), true);
 
