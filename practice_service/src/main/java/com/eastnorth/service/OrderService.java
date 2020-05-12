@@ -2,7 +2,10 @@ package com.eastnorth.service;
 
 import com.eastnorth.pojo.OrderStatus;
 import com.eastnorth.pojo.bo.OrderSubmitBO;
+import com.eastnorth.pojo.bo.ShopcartBO;
 import com.eastnorth.pojo.vo.OrderVO;
+
+import java.util.List;
 
 /**
  * @author zuojianhou
@@ -14,7 +17,7 @@ public interface OrderService {
      * @param submitBO 提交信息
      * @return 订单信息
      */
-    OrderVO createOrder(OrderSubmitBO submitBO);
+    OrderVO createOrder(List<ShopcartBO> shopcartList, OrderSubmitBO submitBO);
 
     /**
      * 修改订单状态
